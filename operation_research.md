@@ -1,4 +1,4 @@
-## Operation Research
+## Reference
 - 참고 GitHub: TeamLab/Gachon_CS50_OR_KMOOC 
 - 참고 블로그: https://realpython.com/linear-programming-python/
   
