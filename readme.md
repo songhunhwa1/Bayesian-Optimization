@@ -6,10 +6,10 @@
 - MAB에 적용된 개념(e-greedy, 톰슨샘플링 등) 피드백을 빠르게 반영하여 제공/노출 시안이나 상품을 빠르게 업데이트
   - 출처: [MAB (Multi-Armed Bandits)](https://soobarkbar.tistory.com/135)
   - 1) 여러번 시도를 통해 분포 획득
-  <img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/im1.png" width="1200"/>
+  <img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/im1.png" width="1200"/>
 
   - 2) 배너별 확률밀도함수
-  <img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/img2.png" width="400"/>
+  <img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img2.png" width="400"/>
   
 
 ## Bayesian Optimization 핵심 내용
@@ -28,10 +28,10 @@
 ## 실제 코드 및 테스트 결과 (1) - 수요예측 Regression
 - 전일 조별 주문수 예측 (Regression)
 - 데이터셋 형상
-<img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/img3.png" width="800"/>
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img3.png" width="800"/>
 
 ## LGBM Default 하이퍼파라메터 성능
-<img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/img4.png" width="800"/>
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img4.png" width="800"/>
 
 ## Random Search  성능 테스트
 ```python
@@ -158,7 +158,7 @@ while i <= 5:
     param_df['mdape'] = 1-(abs(pred_res1['pred']-pred_res1['ord_cnt'])/pred_res1['ord_cnt']).median()
     param_fin = param_fin.append(param_df)
 ```
-<img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/img5.png" width="800"/>
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img5.png" width="800"/>
 
 ## Bayesian Optimization 성능 테스트
 ```python
@@ -195,13 +195,13 @@ def bayesOpt(X_train, y_train):
     print(lgbBO.res)
     return lgbBO.max['params']
 ```
-<img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/img6.png" width="800"/>
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img6.png" width="600"/>
 
 ## 실제 코드 및 테스트 결과 (2) -  랭킹모델
 
 - 임의 데이터를 생성하여 테스트 진행
   - 초기 결과 (임의 가중치: 0.64, 0.23, 0.13 -> Score39.53
-  <img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/img7.png" width="400"/>
+  <img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img7.png" width="400"/>
 
 - Ranking 모델에 BO 적용 결과 
   - 최적화 가중치: 0.791, 0.3128, 0.1055) -> Score: 39.72
@@ -240,7 +240,7 @@ def objective_func(x, y, z):
 bayes_optimizer = BayesianOptimization(objective_func, {'x': (.1, .9), 'y': (.1, .9), 'z': (.1, .9)}, random_state=42)    
 bayes_optimizer.maximize(init_points=4, n_iter=50)
 ```
-<img src="https://github.com/songhunhwa1/DS_demand_forecast/blob/main/optimization/img/img8.png" width="500"/>
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img8.png" width="500"/>
 
 ## 마무리
 - 1차로 생각해볼만한 프로젝트
