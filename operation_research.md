@@ -41,7 +41,8 @@
   - divisibility: 값의 fraction을 허용하는가 안하는가
   - certainty: 계수나, RHS는 반드시 명확해야함
  
-img
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img17.png" width="500"/>
+
 - isoprofit(maximize), isocost(minimize)
 - binding: constraints의 값이 potimal value와 치환 가능할때 (=constraints1, 2의 교차점이 optimal일때)
 - convex set: 어떠한 두 점을 연결했을때 feasible rigion 내에 있는 경우 (LP는 convex set 내에서만 작동)
@@ -67,10 +68,18 @@ img
 ## Network Model
 - 변수간 관계를 Node, Arc 로 표현후 Matrix 로 변경해서 문제를 푸는 방식
 
-img
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img18.png" width="600"/>
 
 - Assignment: Machine 에 어떤 job을 할당할지
 - Transportation
 - Transshipment: 수송, 경유지, 도착지에 대한 수송
 
 ## Genetic Algorithm
+
+- 찰스 다윈의 진화론에서 영감을 받아 만들어짐. 즉, 앞선 세대의 유전자를 지속적으로 재생산 하면서 최적의 유전자가 남는 방식을 알고리즘으로 구현한 것
+- 아래의 다섯가지 단계를 반복하여 최적의 individual을 찾아가는 과정
+  - Initial population
+  - Fitness function
+  - Selection
+  - Crossover
+  - Mutation
