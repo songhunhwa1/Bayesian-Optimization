@@ -13,7 +13,7 @@ f(x,y) = ysinx + x,   f(x,y) = x2 + y
 # source: https://darkpgmr.tistory.com/149
 ```
 - 최소화하려는 함수 f(x)를 목적함수(objective function), 비용함수(cost function), 손실함수(loss function)
-img
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img9.png" width="400"/>
 
 ```python
 def f1(x):
@@ -33,16 +33,18 @@ def f1(x):
 | A02 | 9 | 20 | 1 | 1500 | | 20 |  
 | A03 | 9 | 14 | 4 | 300 | | 10 |  
 
-# 최적화 원리
+## 최적화 원리
 - 그리드 서치(Grid Search): 단순하지만 경우의 수가 너무 많고, 시도 횟수가 많음
 - 수치적 최적화 (numerical optimization): 가능한 적은 횟수로 최적화 값을 찾는 방법
 - 최대경사법(steepest gradient method)
 - 이동 방향 및 이동량을 결정하는 파라메터가 가장 중요
-- img
+<img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img10.png" width="400"/>
 - 뉴튼 방법(Newton method), Levenberg-Marquardt 등 다양하게 있으나,
 - 결국 이동 방향 및 이동량을 결정하는 방식에 차이가 있을 뿐
 
-# 기본 수학적 원리
+## 기본 수학적 원리
+
+
 
 
 
