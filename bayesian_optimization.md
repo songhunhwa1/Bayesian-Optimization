@@ -96,67 +96,6 @@ while i <= 5:
     param_df = pd.DataFrame.from_dict(params, orient='index').T
     param_df['mdape'] = 1-(abs(pred_res1['pred']-pred_res1['ord_cnt'])/pred_res1['ord_cnt']).median()
     param_fin = param_fin.append(param_df)
-%%time
-param_fin = pd.DataFrame()
-i = 0
-while i <= 5:    
-    i += 1
-    print(i)
-    # Random Grid Search
-    params = {} #initialize parameters
-    params['learning_rate'] = np.random.uniform(0, 1)
-    params['boosting_type'] = np.random.choice(['gbdt', 'dart', 'goss'])
-    params['objective'] = 'regression'
-    params['metric'] = 'mae'
-    params['sub_feature'] = np.random.uniform(0, 1)
-    params['num_leaves'] = np.random.randint(20, 300)
-    params['min_data'] = np.random.randint(10, 100)
-    params['max_depth'] = np.random.randint(5, 200)
-    params['n_estimators'] = np.random.randint(100, 2000)
-        
-    # 조별로 필터링후 학습/예측
-    pred_res = pd.DataFrame()
-    rgn_list = df.region_group_code.drop_duplicates()        
-    target_encoder = ce.TargetEncoder(cols=['biz_hour'])
-    drop_cols = ['ord_cnt', 'region_group_code', 'ord_ratio_ar', 'ord_ratio', 'ord_sum']
-
-    # 특정 과거 소급시 날짜 입력후 가능                                   
-    for date in pd.period_range(target_min_date, target_date):
-        logging.info(f"{date}: model train & predict is started")                        
-        for rgn in rgn_list:
-
-            # subset 생성
-            subset = df.query("region_group_code == @rgn")
-
-            # 예측수행일 날짜 제외하고 어제까지 데이터로만 학습
-            ## todo: 최대 21일까지 예측 -> 이슈가 null 메꾸고 써야함. 우선 당일예측으로 집중
-            train = subset[subset.index < str(date-1)] # 예측수행일 미만만 학습
-            pred = subset[subset.index == str(date)] # 예측대상 기간
-
-            X_train = train.drop(drop_cols, axis=1)            
-            X_train['biz_hour_encode'] = target_encoder.fit_transform(train['biz_hour'], train['ord_cnt'])
-            y_train = train[['ord_cnt']]
-
-            X_pred = pred.drop(drop_cols, axis=1)    
-            X_pred['biz_hour_encode'] = target_encoder.transform(pred['biz_hour'])                               
-            y_pred = pred[['biz_hour', 'region_group_code', 'ord_cnt']] 
-
-            #todo: 파라메터 최적화 필요
-            model = LGBMRegressor(**params)            
-            model.fit(X_train, y_train)
-            y_pred['pred'] = model.predict(X_pred).astype(int)
-            y_pred['pred_date'] = str(date-1) # 예측수행일  
-            pred_res = pred_res.append(y_pred)        
-
-        logging.info(f"{date}: model train & predict is finished")      
-    pred_res = pred_res.reset_index()
-    pred_res['biz_ymd'] = pd.to_datetime(pred_res['biz_ymd'])
-    pred_res['pred_date'] = pd.to_datetime(pred_res['pred_date'])
-    pred_res1 = pred_res.groupby(['biz_ymd', 'region_group_code'])[['ord_cnt', 'pred']].sum().reset_index()
-    
-    param_df = pd.DataFrame.from_dict(params, orient='index').T
-    param_df['mdape'] = 1-(abs(pred_res1['pred']-pred_res1['ord_cnt'])/pred_res1['ord_cnt']).median()
-    param_fin = param_fin.append(param_df)
 ```
 <img src="https://github.com/songhunhwa1/Bayesian-Optimization/blob/main/img/img5.png" width="800"/>
 
